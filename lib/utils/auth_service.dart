@@ -1,6 +1,7 @@
 
 
-class AuthProvider{
+class AuthService{
+
 
 
 
