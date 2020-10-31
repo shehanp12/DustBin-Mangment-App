@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
+
+  final Function toggleView;
+  SignInPage({this.toggleView});
+
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
@@ -151,6 +156,18 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        title: Text('SignIn '),
+        actions:<Widget> [
+          FlatButton.icon(
+              onPressed:() => widget.toggleView() ,
+              icon: Icon(Icons.person),
+          label: Text('Register')
+          )
+        ],
+      ),
       body: Stack(
         children: <Widget>[
           Container(
