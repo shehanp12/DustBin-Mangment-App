@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
