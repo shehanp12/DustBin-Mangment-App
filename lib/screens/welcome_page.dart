@@ -149,6 +149,50 @@ class _WelcomePageState extends State<WelcomePage> {
     );
 
 
-    return Container();
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/main.jpg'),
+                    fit: BoxFit.cover)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: 20.0,
+                  height: 70.0,
+                ),
+                welcomeBack,
+                Spacer(flex: 1),
+                loginForm,
+                Spacer(flex: 2),
+                // forgotPassword
+              ],
+            ),
+          ),
+          //*Positioned(
+          // top: 35,
+          // left: 0,
+          // child: IconButton(
+          // color: Colors.black,
+          // icon: Icon(Icons.arrow_back),
+          // onPressed: () {
+          // Navigator.pop(context);
+          //},
+          //),
+          //)
+        ],
+      ),
+
+
+
+
+    );
   }
 }

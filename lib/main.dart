@@ -1,3 +1,4 @@
+import 'package:dustbin_mangment/screens/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home:WelcomePage(),
     );
   }
 }
