@@ -8,6 +8,8 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
 
