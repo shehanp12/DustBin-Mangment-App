@@ -62,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
           width: MediaQuery.of(context).size.width / 2,
           height: 80,
           child: Center(
-              child: new Text('log_in',
+              child: new Text('Log In',
                   style: const TextStyle(
                       color: const Color(0xfffefefe),
                       fontWeight: FontWeight.w600,
@@ -116,7 +116,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'your_email',
+                        hintText: 'Your Email',
                       ),
                       validator: (val) => val.isEmpty ?'Please enter your Email' : null,
                       onChanged: (val) => setState(() => email = val ),
@@ -127,7 +127,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'password',
+                        hintText: 'Your Password',
 
                       ),
                       validator:(val) =>val.isEmpty ? 'Please enter your password':null,
