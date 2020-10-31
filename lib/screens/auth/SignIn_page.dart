@@ -159,7 +159,6 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         elevation: 0,
-        title: Text('SignIn '),
         actions:<Widget> [
           FlatButton.icon(
               onPressed:() => widget.toggleView() ,
