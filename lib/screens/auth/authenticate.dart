@@ -23,7 +23,7 @@ class _AuthenticateState extends State<Authenticate> {
       return SignInPage(toggleView:  toggleView);
     } else {
 
-      // return RegisterPage(toggleView:  toggleView);
+      return RegisterPage(toggleView:  toggleView);
       //
 
     }

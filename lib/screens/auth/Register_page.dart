@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
+
+  final Function toggleView;
+  RegisterPage({this.toggleView});
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -150,6 +153,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        actions:<Widget> [
+          FlatButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('Sign In'),
+            onPressed: () => widget.toggleView(),
+          ),
+
+        ],
+      ),
       resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
