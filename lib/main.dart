@@ -1,4 +1,5 @@
 import 'package:dustbin_mangment/screens/auth/SignIn_page.dart';
+import 'package:dustbin_mangment/screens/auth/authenticate.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:SignInPage(),
+      home:Authenticate(),
     );
   }
 }
