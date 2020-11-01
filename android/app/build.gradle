@@ -29,6 +29,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
@@ -46,6 +47,7 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.dustbin_mangment"
         minSdkVersion 16
