@@ -1,6 +1,8 @@
 import 'package:dustbin_mangment/screens/auth/SignIn_page.dart';
 import 'package:dustbin_mangment/screens/auth/authenticate.dart';
+import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,16 +12,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context,snapshot){
+        if(snapshot.connectionState == ConnectionState.done){
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
 
-        primarySwatch: Colors.blue,
-
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home:Authenticate(),
+            ),
+            home: Authenticate(),
+          );
+        }
+        return HomeScreen();
+      },
     );
+
+
+
+
+
+
+
+
   }
 }
 
