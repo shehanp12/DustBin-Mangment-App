@@ -37,17 +37,18 @@ class _SignInPageState extends State<SignInPage> {
                   .push(MaterialPageRoute(builder: (_) => HomeScreen()));
             } else {
               showCupertinoDialog(
-                  context: context,
-                  builder: (context) => CupertinoAlertDialog(
-                        content: Text("Login failed. Please try again!"),
-                        actions: <Widget>[
-                          CupertinoButton(
-                              child: Text("Ok"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }),
-                        ],
-                      ));
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  content: Text("Login failed. Please try again!"),
+                  actions: <Widget>[
+                    CupertinoButton(
+                        child: Text("Ok"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              );
             }
           }
         },
@@ -148,9 +149,10 @@ class _SignInPageState extends State<SignInPage> {
         elevation: 0,
         actions: <Widget>[
           FlatButton.icon(
-              onPressed: () => widget.toggleView(),
-              icon: Icon(Icons.person),
-              label: Text('Register'))
+            onPressed: () => widget.toggleView(),
+            icon: Icon(Icons.person),
+            label: Text('Register'),
+          ),
         ],
       ),
       body: Stack(
@@ -178,17 +180,6 @@ class _SignInPageState extends State<SignInPage> {
               ],
             ),
           ),
-          //*Positioned(
-          // top: 35,
-          // left: 0,
-          // child: IconButton(
-          // color: Colors.black,
-          // icon: Icon(Icons.arrow_back),
-          // onPressed: () {
-          // Navigator.pop(context);
-          //},
-          //),
-          //)
         ],
       ),
     );
