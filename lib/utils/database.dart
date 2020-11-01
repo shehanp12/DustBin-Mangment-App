@@ -6,13 +6,11 @@ class DatabaseService{
    DatabaseService({this.uid});
 
 
-   final CollectionReference brewCollection = FirebaseFirestore.instance.collection('brews');
+   final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
 
-   Future<void> updateUserData(String sugars, String name, int strength) async {
-     return await brewCollection.doc(uid).set({
-       'sugars': sugars,
-       'name': name,
-       'strength': strength,
+   Future<void> updateUserData() async {
+     return await driverCollection.doc(uid).set({
+
      });
    }
 
