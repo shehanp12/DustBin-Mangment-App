@@ -1,13 +1,9 @@
 class Driver{
 
-  String email ='';
-
-  Driver(String email){
-    this.email=email;
-
-  }
+ String uid ='';
 
 
+ Driver({ this.uid});
 
 
 

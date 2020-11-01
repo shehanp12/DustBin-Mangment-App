@@ -1,6 +1,7 @@
+import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 class RegisterPage extends StatefulWidget {
 
   final Function toggleView;
@@ -10,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -31,33 +33,34 @@ class _RegisterPageState extends State<RegisterPage> {
         onTap: () async {
 
 
-          // if (_formKey.currentState.validate()) {
-          //
-          //
-          //   // dynamic result =
-          //   // await _auth.signInWithEmailAndPass(email, password);
-          //   //
-          //   //
-          //
-          //   if () {}
-          //
-          //   else{
-          //     showCupertinoDialog(
-          //         context: context,
-          //         builder: (context) => CupertinoAlertDialog(
-          //           content: Text(
-          //               "Login failed. Please try again!"),
-          //           actions: <Widget>[
-          //             CupertinoButton(
-          //                 child: Text("Ok"),
-          //                 onPressed: () {
-          //                   Navigator.pop(context);
-          //                 }),
-          //           ],
-          //         ));
-          //   }
-          // }
-          //
+          if (_formKey.currentState.validate()) {
+
+
+            dynamic result =
+             await _auth.registerWithEmailAndPassword(email, password);
+
+            if (result != null) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+            }
+
+            else{
+              showCupertinoDialog(
+                  context: context,
+                  builder: (context) => CupertinoAlertDialog(
+                    content: Text(
+                        "Login failed. Please try again!"),
+                    actions: <Widget>[
+                      CupertinoButton(
+                          child: Text("Ok"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ],
+                  ));
+            }
+          }
+
 
 
         },
