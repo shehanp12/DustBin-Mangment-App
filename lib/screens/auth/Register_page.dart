@@ -1,7 +1,7 @@
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 class RegisterPage extends StatefulWidget {
 
   final Function toggleView;
@@ -40,8 +40,8 @@ class _RegisterPageState extends State<RegisterPage> {
              await _auth.registerWithEmailAndPassword(email, password);
 
             if (result != null) {
-              // Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => HomeScreen()));
             }
 
             else{
