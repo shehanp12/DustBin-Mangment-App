@@ -1,67 +1,55 @@
+import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dustbin_mangment/utils/auth_service.dart';
 
 class SignInPage extends StatefulWidget {
-
   final Function toggleView;
   SignInPage({this.toggleView});
-
 
   @override
   _SignInPageState createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   @override
   Widget build(BuildContext context) {
-
-    Widget welcomeBack = Text(
-         'Welcome Driver',
+    Widget welcomeBack = Text('Welcome Driver',
         style: TextStyle(
             color: Color.fromRGBO(25, 35, 45, 1),
             fontSize: 50.0,
-            fontWeight: FontWeight.bold)
-    );
+            fontWeight: FontWeight.bold));
 
     Widget loginButton = Positioned(
       left: MediaQuery.of(context).size.width / 6,
       bottom: 10,
       child: InkWell(
         onTap: () async {
-
-
-          // if (_formKey.currentState.validate()) {
-          //
-          //
-          //   // dynamic result =
-          //   // await _auth.signInWithEmailAndPass(email, password);
-          //   //
-          //   //
-          //
-          //   if () {}
-          //
-          //   else{
-          //     showCupertinoDialog(
-          //         context: context,
-          //         builder: (context) => CupertinoAlertDialog(
-          //           content: Text(
-          //               "Login failed. Please try again!"),
-          //           actions: <Widget>[
-          //             CupertinoButton(
-          //                 child: Text("Ok"),
-          //                 onPressed: () {
-          //                   Navigator.pop(context);
-          //                 }),
-          //           ],
-          //         ));
-          //   }
-          // }
-          //
-
-
+          if (_formKey.currentState.validate()) {
+            dynamic result =
+                await _auth.signInWithEmailAndPassword(email, password);
+            if (result != null) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+            } else {
+              showCupertinoDialog(
+                  context: context,
+                  builder: (context) => CupertinoAlertDialog(
+                        content: Text("Login failed. Please try again!"),
+                        actions: <Widget>[
+                          CupertinoButton(
+                              child: Text("Ok"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              }),
+                        ],
+                      ));
+            }
+          }
         },
         child: Container(
           width: MediaQuery.of(context).size.width / 2,
@@ -114,7 +102,6 @@ class _SignInPageState extends State<SignInPage> {
                 ]),
             child: Form(
               key: _formKey,
-//              mainAxisAlignment: MainAxisAlignment.start,
               child: ListView(
                 children: <Widget>[
                   Padding(
@@ -123,8 +110,9 @@ class _SignInPageState extends State<SignInPage> {
                       decoration: InputDecoration(
                         hintText: 'Your Email',
                       ),
-                      validator: (val) => val.isEmpty ?'Please enter your Email' : null,
-                      onChanged: (val) => setState(() => email = val ),
+                      validator: (val) =>
+                          val.isEmpty ? 'Please enter your Email' : null,
+                      onChanged: (val) => setState(() => email = val),
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
@@ -133,10 +121,10 @@ class _SignInPageState extends State<SignInPage> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Your Password',
-
                       ),
-                      validator:(val) =>val.isEmpty ? 'Please enter your password':null,
-                      onChanged: (val)=> setState(() =>password = val),
+                      validator: (val) =>
+                          val.isEmpty ? 'Please enter your password' : null,
+                      onChanged: (val) => setState(() => password = val),
                       style: TextStyle(fontSize: 16.0),
                       obscureText: true,
                     ),
@@ -153,18 +141,16 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
 
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.blue,
         elevation: 0,
-        actions:<Widget> [
+        actions: <Widget>[
           FlatButton.icon(
-              onPressed:() => widget.toggleView() ,
+              onPressed: () => widget.toggleView(),
               icon: Icon(Icons.person),
-          label: Text('Register')
-          )
+              label: Text('Register'))
         ],
       ),
       body: Stack(
@@ -205,10 +191,6 @@ class _SignInPageState extends State<SignInPage> {
           //)
         ],
       ),
-
-
-
-
     );
   }
 }
