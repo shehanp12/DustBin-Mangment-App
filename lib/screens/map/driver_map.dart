@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +101,7 @@ class _DriverMapState extends State<DriverMap> {
 
   Future<Uint8List> getMarker() async {
     ByteData byteData =
-        await DefaultAssetBundle.of(context).load("images/car.png");
+        await DefaultAssetBundle.of(context).load("assets/images/car.png");
     return byteData.buffer.asUint8List();
   }
 
@@ -111,7 +110,7 @@ class _DriverMapState extends State<DriverMap> {
     uid = user.uid.toString();
 
     DocumentReference documentReference =
-        FirebaseFirestore.instance.collection("transport").doc(uid);
+        FirebaseFirestore.instance.collection("Drivers").doc(uid);
     documentReference.get().then((dataSnapshot) {
       if (dataSnapshot.exists) {
         // print(dataSnapshot.data['Bus Name'].toString());
