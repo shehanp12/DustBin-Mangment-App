@@ -1,3 +1,4 @@
+import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
             if (result != null) {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                  .push(MaterialPageRoute(builder: (_) => DriverMap()));
             }
 
             else{
