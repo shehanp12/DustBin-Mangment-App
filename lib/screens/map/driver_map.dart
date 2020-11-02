@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class DriverMap extends StatefulWidget {
   @override
@@ -14,7 +15,6 @@ class DriverMap extends StatefulWidget {
 }
 
 class _DriverMapState extends State<DriverMap> {
-
   StreamSubscription _locationSubscription;
   Location _locationTracker = Location();
   Marker marker;
@@ -28,20 +28,18 @@ class _DriverMapState extends State<DriverMap> {
     zoom: 14.4746,
   );
 
-
-  final DatabaseReference database = FirebaseDatabase.instance.reference().child("drivertest");
+  final DatabaseReference database =
+      FirebaseDatabase.instance.reference().child("drivertest");
 
   Future<String> inputData(LocationData newLocalData) async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     uid = user.uid.toString();
-
-
 
     LatLng latlng = LatLng(newLocalData.latitude, newLocalData.longitude);
     database.child(uid).set({
-      "latitude":latlng.latitude,
-      "longitude":latlng.longitude,
-      "id":name,
+      "latitude": latlng.latitude,
+      "longitude": latlng.longitude,
+      "id": name,
     });
     print(name);
 
@@ -84,18 +82,17 @@ class _DriverMapState extends State<DriverMap> {
 
       _locationSubscription =
           _locationTracker.onLocationChanged.listen((newLocalData) {
-            if (_controller != null) {
-              _controller.animateCamera(CameraUpdate.newCameraPosition(
-                  new CameraPosition(
-                      bearing: 192.8334901395799,
-                      target: LatLng(newLocalData.latitude, newLocalData.longitude),
-                      tilt: 0,
-                      zoom: 14.00)));
-              updateMarkerAndCircle(newLocalData, imageData);
-              inputData(newLocalData);
-
-            }
-          });
+        if (_controller != null) {
+          _controller.animateCamera(CameraUpdate.newCameraPosition(
+              new CameraPosition(
+                  bearing: 192.8334901395799,
+                  target: LatLng(newLocalData.latitude, newLocalData.longitude),
+                  tilt: 0,
+                  zoom: 14.00)));
+          updateMarkerAndCircle(newLocalData, imageData);
+          inputData(newLocalData);
+        }
+      });
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
         debugPrint("Permission Denied");
@@ -105,7 +102,7 @@ class _DriverMapState extends State<DriverMap> {
 
   Future<Uint8List> getMarker() async {
     ByteData byteData =
-    await DefaultAssetBundle.of(context).load("images/car.png");
+        await DefaultAssetBundle.of(context).load("images/car.png");
     return byteData.buffer.asUint8List();
   }
 
@@ -114,14 +111,13 @@ class _DriverMapState extends State<DriverMap> {
     uid = user.uid.toString();
 
     DocumentReference documentReference =
-    FirebaseFirestore.instance.collection("transport").doc(uid);
-    documentReference.get().then((dataSnapshot){
-      if(dataSnapshot.exists){
+        FirebaseFirestore.instance.collection("transport").doc(uid);
+    documentReference.get().then((dataSnapshot) {
+      if (dataSnapshot.exists) {
         // print(dataSnapshot.data['Bus Name'].toString());
         // name=dataSnapshot.data['Bus Name'].toString();
         getCurrentLocation();
-      }
-      else{
+      } else {
         print('loading');
       }
     });
@@ -130,6 +126,23 @@ class _DriverMapState extends State<DriverMap> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body:GoogleMap(
+          mapType: MapType.normal,
+          compassEnabled: true,
+          initialCameraPosition: initialLocation,
+          markers: Set.of((marker != null) ? [marker] : []),
+          circles: Set.of((circle != null) ? [circle] : []),
+          onMapCreated: (GoogleMapController controller) {
+            _controller = controller;
+          }
+      ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.location_searching),
+          onPressed: () {
+            setname();
+          }),
+
+    );
   }
 }
