@@ -37,10 +37,10 @@ class _DriverMapState extends State<DriverMap> {
     LatLng latlng = LatLng(newLocalData.latitude, newLocalData.longitude);
     database.child(uid).set({
       "latitude": latlng.latitude,
-      "longitude": latlng.longitude,
-      "id": name,
+      "longitude": latlng.longitude
+
     });
-    print(name);
+
 
     return uid;
   }
@@ -113,9 +113,8 @@ class _DriverMapState extends State<DriverMap> {
         FirebaseFirestore.instance.collection("Drivers").doc(uid);
     documentReference.get().then((dataSnapshot) {
       if (dataSnapshot.exists) {
-        // print(dataSnapshot.data['Bus Name'].toString());
-        // name=dataSnapshot.data['Bus Name'].toString();
         getCurrentLocation();
+
       } else {
         print('loading');
       }
