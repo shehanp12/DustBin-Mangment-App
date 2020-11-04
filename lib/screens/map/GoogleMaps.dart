@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:map_controller/map_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GoogleMaps extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
   );
 
   GoogleMapController mapController;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   CameraPosition position = _kInitialPosition;
   Location location = new Location();
   @override
@@ -72,6 +73,30 @@ class _GoogleMapsState extends State<GoogleMaps> {
     setState(() {
       mapController = controller;
     });
+  }
+
+  _startQuery() async {
+
+    //Get users Location
+    var pos = await location.getLocation();
+    double lat = pos.latitude;
+    double lng = pos.longitude;
+
+
+    // Make a referece to firestore
+    var ref = firestore.collection('locations');
+    GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
+
+    // subscribe to query
+    subscription = radius.switchMap((rad) {
+      return geo.collection(collectionRef: ref).within(
+          center: center,
+          radius: rad,
+          field: 'position',
+          strictMode: true
+      );
+    }).listen(_updateMarkers);
+
   }
 
 
