@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
 class GoogleMaps extends StatefulWidget {
   @override
@@ -18,8 +21,16 @@ class _GoogleMapsState extends State<GoogleMaps> {
 
   GoogleMapController mapController;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Geoflutterfire geo = Geoflutterfire();
   CameraPosition position = _kInitialPosition;
   Location location = new Location();
+  // Stateful Data
+  BehaviorSubject<double> radius = BehaviorSubject.seeded(100);
+  Stream<dynamic> query;
+
+  // Subscription
+  StreamSubscription subscription;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,7 +49,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
               FlatButton(
                   child: Icon(Icons.pin_drop),
                   color: Colors.green,
-                  onPressed: () => _addMarker()
+                  onPressed: () => _addGeoPoint
               )
           )
         ]
@@ -55,13 +66,6 @@ class _GoogleMapsState extends State<GoogleMaps> {
     );
 
   }
-
-
-
-
-
-
-
 
   void _updateCameraPosition(CameraPosition position) {
     setState(() {
@@ -88,16 +92,31 @@ class _GoogleMapsState extends State<GoogleMaps> {
     GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
 
     // subscribe to query
-    subscription = radius.switchMap((rad) {
-      return geo.collection(collectionRef: ref).within(
-          center: center,
-          radius: rad,
-          field: 'position',
-          strictMode: true
-      );
-    }).listen(_updateMarkers);
+    // subscription = radius.switchMap((rad) {
+    //   return geo.collection(collectionRef: ref).within(
+    //       center: center,
+    //       radius: rad,
+    //       field: 'position',
+    //       strictMode: true
+    //   );
+    // }).listen(_updateMarkers);
 
   }
+
+
+
+  // Set GeoLocation Data
+  Future<DocumentReference> _addGeoPoint() async {
+    var pos = await location.getLocation();
+    GeoFirePoint point = geo.point(latitude: pos.latitude, longitude: pos.longitude);
+    return firestore.collection('locations').add({
+      'position': point.data,
+      'name': 'Yay I can be queried!'
+    });
+  }
+
+
+
 
 
 }

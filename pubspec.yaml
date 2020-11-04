@@ -30,6 +30,9 @@ dependencies:
   location: ^3.0.0
   firebase_database: ^4.2.0
   map_controller: ^0.8.0
+  geoflutterfire: ^2.2.1
+  rxdart: ^0.24.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
