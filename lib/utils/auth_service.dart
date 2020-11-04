@@ -9,6 +9,17 @@ class AuthService{
 
   User firebaseUser;
 
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+
+    }
+  }
   // create user obj based on firebase user
   Driver _userFromFirebaseUser(User user) {
     return user != null ? Driver(uid: user.uid) : null;

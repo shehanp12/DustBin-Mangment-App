@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:dustbin_mangment/utils/auth_service.dart';
 
 class DriverMap extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class DriverMap extends StatefulWidget {
 }
 
 class _DriverMapState extends State<DriverMap> {
+  final AuthService _auth = AuthService();
   StreamSubscription _locationSubscription;
   Location _locationTracker = Location();
   Marker marker;
@@ -28,7 +30,7 @@ class _DriverMapState extends State<DriverMap> {
   );
 
   final DatabaseReference database =
-      FirebaseDatabase.instance.reference().child("drivertest");
+      FirebaseDatabase.instance.reference().child("DriverLocation");
 
   Future<String> inputData(LocationData newLocalData) async {
     User user = FirebaseAuth.instance.currentUser;
@@ -40,7 +42,6 @@ class _DriverMapState extends State<DriverMap> {
       "longitude": latlng.longitude
 
     });
-
 
     return uid;
   }
@@ -125,6 +126,22 @@ class _DriverMapState extends State<DriverMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
+        elevation: 0,
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () async {
+              await _auth.signOut();
+            },
+            icon: Icon(Icons.lock),
+            label: Text('Logout',style: TextStyle(
+              fontSize: 18,
+              fontFamily: 'times-new-roman',
+            ),),
+          )
+        ],
+      ),
       body:GoogleMap(
           mapType: MapType.normal,
           compassEnabled: true,
@@ -138,7 +155,7 @@ class _DriverMapState extends State<DriverMap> {
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.location_searching),
           onPressed: () {
-            setname();
+            getCurrentLocation();
           }),
 
     );
