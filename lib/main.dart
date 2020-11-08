@@ -1,3 +1,4 @@
+import 'package:dustbin_mangment/LoadingScreen.dart';
 import 'package:dustbin_mangment/screens/auth/authenticate.dart';
 import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
               visualDensity: VisualDensity.adaptivePlatformDensity,
 
             ),
-            home: Authenticate(),
+            home: Loading(),
           );
         }
         return HomeScreen();
