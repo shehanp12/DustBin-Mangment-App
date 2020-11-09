@@ -1,3 +1,4 @@
+import 'package:dustbin_mangment/LoadingScreen.dart';
 import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
@@ -142,7 +144,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.blue,

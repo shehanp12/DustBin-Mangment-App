@@ -1,3 +1,4 @@
+import 'package:dustbin_mangment/LoadingScreen.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String email = '';
@@ -156,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
 
-    return Scaffold(
+    return  loading ? Loading() :Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
         actions:<Widget> [
@@ -194,17 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ],
             ),
           ),
-          //*Positioned(
-          // top: 35,
-          // left: 0,
-          // child: IconButton(
-          // color: Colors.black,
-          // icon: Icon(Icons.arrow_back),
-          // onPressed: () {
-          // Navigator.pop(context);
-          //},
-          //),
-          //)
+
         ],
       ),
 
