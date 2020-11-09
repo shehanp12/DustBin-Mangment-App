@@ -37,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
           if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
 
 
             dynamic result =
