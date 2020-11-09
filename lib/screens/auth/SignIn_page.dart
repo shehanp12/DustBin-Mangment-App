@@ -1,5 +1,6 @@
 import 'package:dustbin_mangment/LoadingScreen.dart';
 import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
+import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
@@ -36,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
                 await _auth.signInWithEmailAndPassword(email, password);
             if (result != null) {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+                  .push(MaterialPageRoute(builder: (_) => DriverMap()));
             } else {
               showCupertinoDialog(
                 context: context,
