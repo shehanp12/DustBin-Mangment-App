@@ -32,6 +32,7 @@ dependencies:
   map_controller: ^0.8.0
   geoflutterfire: ^2.2.1
   rxdart: ^0.24.1
+  animated_text_kit: ^2.5.4
 
 
 
@@ -58,6 +59,7 @@ flutter:
   assets:
    - assets/images/main.jpg
    - assets/images/car.png
+   - assets/images/schbus.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
