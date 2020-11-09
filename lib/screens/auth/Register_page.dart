@@ -3,7 +3,6 @@ import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 class RegisterPage extends StatefulWidget {
 
   final Function toggleView;
