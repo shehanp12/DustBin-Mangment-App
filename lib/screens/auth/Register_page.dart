@@ -11,6 +11,7 @@ import 'package:international_phone_input/international_phone_input.dart';
 class RegisterPage extends StatefulWidget {
   final Function toggleView;
   RegisterPage({this.toggleView});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -160,28 +161,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       nicNumber,
                       confirmedNumber,
                     );
+                    print(driver);
 
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         driver, password);
 
-                    if (result != null) {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) => DriverMap()));
-                    } else {
-                      showCupertinoDialog(
-                          context: context,
-                          builder: (context) => CupertinoAlertDialog(
-                                content:
-                                    Text("Login failed. Please try again!"),
-                                actions: <Widget>[
-                                  CupertinoButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }),
-                                ],
-                              ));
-                    }
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => DriverMap()));
                   }
                 },
                 typeText: Text('register',

@@ -1,13 +1,17 @@
 import 'package:dustbin_mangment/utils/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/models/driver.dart';
-
+import 'package:dustbin_mangment/utils/database.dart';
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
   User firebaseUser;
+
+
+
+
 
   Future signOut() async {
     try{
@@ -41,12 +45,9 @@ class AuthService{
   // register with email and password
   Future registerWithEmailAndPassword(Driver driver, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: driver.email, password: password);
-      print(result);
-      // Driver driver = result.user;
-      // create a new document for the user with the uid
-      // await DatabaseService(uid: user.uid).updateUserData();
-      // return _userFromFirebaseUser(user);
+       UserCredential result = await _auth.createUserWithEmailAndPassword(email: driver.email, password: password);
+       await DatabaseService(driver).addDriver();
+       print(result);
     } catch (error) {
       print(error.toString());
       return null;
