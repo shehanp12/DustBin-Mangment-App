@@ -5,8 +5,10 @@ import 'package:dustbin_mangment/screens/auth/form_constraints.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart
 import 'package:international_phone_input/international_phone_input.dart';
+class RegisterPage extends StatefulWidget {
+
 
 class RegisterPage extends StatefulWidget {
   final Function toggleView;
@@ -38,6 +40,88 @@ class _RegisterPageState extends State<RegisterPage> {
       phoneIsoCode = isoCode;
     });
   }
+
+  @override
+  Widget build(BuildContext context) {
+
+    Widget welcomeBack = Text(
+        'Welcome Driver',
+        style: TextStyle(
+            color: Color.fromRGBO(25, 35, 45, 1),
+            fontSize: 50.0,
+            fontWeight: FontWeight.bold)
+    );
+
+    Widget loginButton = Positioned(
+      left: MediaQuery.of(context).size.width / 6,
+      bottom: 10,
+      child: InkWell(
+        onTap: () async {
+
+
+          if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
+
+
+            dynamic result =
+             await _auth.registerWithEmailAndPassword(email, password);
+
+            if (result != null) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => DriverMap()));
+            }
+
+            else{
+              showCupertinoDialog(
+                  context: context,
+                  builder: (context) => CupertinoAlertDialog(
+                    content: Text(
+                        "Login failed. Please try again!"),
+                    actions: <Widget>[
+                      CupertinoButton(
+                          child: Text("Ok"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ],
+                  ));
+            }
+          }
+
+
+
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width / 2,
+          height: 80,
+          child: Center(
+              child: new Text('Register',
+                  style: const TextStyle(
+                      color: const Color(0xfffefefe),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 20.0))),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF0D47A1),
+                    Color(0xFF1976D2),
+                    Color(0xFF42A5F5),
+                  ],
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.16),
+                  offset: Offset(0, 5),
+                  blurRadius: 10.0,
+                )
+              ],
+              borderRadius: BorderRadius.circular(50.0)),
+        ),
+      ),
+    );
+
 
   onValidPhoneNumber(
       String number, String internationalizedPhoneNumber, String isoCode) {

@@ -1,5 +1,4 @@
 import 'package:dustbin_mangment/LoadingScreen.dart';
-import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       child: InkWell(
         onTap: () async {
           if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
             dynamic result =
                 await _auth.signInWithEmailAndPassword(email, password);
             if (result != null) {
