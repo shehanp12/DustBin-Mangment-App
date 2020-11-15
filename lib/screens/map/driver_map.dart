@@ -101,6 +101,8 @@ class _DriverMapState extends State<DriverMap> {
     }
   }
 
+
+
   Future<Uint8List> getMarker() async {
     ByteData byteData =
         await DefaultAssetBundle.of(context).load("assets/images/car.png");

@@ -1,12 +1,19 @@
 import 'package:dustbin_mangment/LoadingScreen.dart';
+import 'package:dustbin_mangment/components/regbutton.dart';
+import 'package:dustbin_mangment/models/driver.dart';
+import 'package:dustbin_mangment/screens/auth/form_constraints.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart
+import 'package:international_phone_input/international_phone_input.dart';
 class RegisterPage extends StatefulWidget {
 
+
+class RegisterPage extends StatefulWidget {
   final Function toggleView;
   RegisterPage({this.toggleView});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -17,6 +24,23 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String address = '';
+  String fullName = '';
+  String nicNumber = '';
+  double fieldRadius = 25;
+  String error = '';
+  String phoneNumber;
+  String phoneIsoCode;
+  String confirmedNumber;
+
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phoneNumber = number;
+      phoneIsoCode = isoCode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -98,111 +122,178 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
 
-    Widget loginForm = Container(
-      height: 260,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: 160,
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 255, 255, 0.8),
-                borderRadius: BorderRadius.circular(9.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0),
-                    offset: Offset(0, 5),
-                    blurRadius: 10.0,
-                  )
-                ]),
-            child: Form(
-              key: _formKey,
-//              mainAxisAlignment: MainAxisAlignment.start,
-              child: ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Your Email',
-                      ),
-                      validator: (val) => val.isEmpty ?'Please enter your Email' : null,
-                      onChanged: (val) => setState(() => email = val ),
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Your Password',
 
-                      ),
-                      validator:(val) =>val.isEmpty ? 'Please enter your password':null,
-                      onChanged: (val)=> setState(() =>password = val),
-                      style: TextStyle(fontSize: 16.0),
-                      obscureText: true,
-                    ),
-                  ),
-                ],
+  onValidPhoneNumber(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      confirmedNumber = internationalizedPhoneNumber;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget registerForm = Container(
+      height: MediaQuery.of(context).size.height / 1.15,
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+      decoration: BoxDecoration(
+          color: Color.fromRGBO(255, 255, 255, 0.8),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          )),
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(10.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      errorStyle: TextStyle(height: 0),
+                      hintText: 'Full Name',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(fieldRadius))),
+                  validator: (val) =>
+                      val == null || val.trim() == '' ? '' : null,
+                  onChanged: (val) => setState(() => fullName = val),
+                ),
               ),
-            ),
+              Padding(padding: EdgeInsets.all(3.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      errorStyle: TextStyle(height: 0),
+                      hintText: 'Address',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(fieldRadius))),
+                  validator: (val) =>
+                      val == null || val.trim() == '' ? '' : null,
+                  onChanged: (val) => setState(() => address = val),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(3.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: InternationalPhoneInput(
+                    hintText: "eg:0772009803",
+                    onPhoneNumberChange: onValidPhoneNumber,
+                    initialPhoneNumber: confirmedNumber,
+                    initialSelection: phoneIsoCode,
+                    enabledCountries: ['+94'],
+                    labelText: 'Phone Number'),
+              ),
+              Padding(padding: EdgeInsets.all(3.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      errorStyle: TextStyle(height: 0),
+                      hintText: 'NIC Number',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(fieldRadius))),
+                  validator: (val) =>
+                      val == null || val.trim() == '' ? '' : null,
+                  onChanged: (val) => setState(() => nicNumber = val),
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(top: 3.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      errorStyle: TextStyle(height: 0),
+                      hintText: 'Email',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(fieldRadius))),
+                  validator: (val) =>
+                      val == null || val.trim() == '' ? '' : null,
+                  onChanged: (val) => setState(() => email = val),
+                ),
+              ),
+              Padding(padding: EdgeInsets.only(top: 3.0)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: TextFormField(
+                  decoration: textInputDecoration.copyWith(
+                      errorStyle: TextStyle(height: 0),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(fieldRadius))),
+                  validator: (val) =>
+                      val == null || val.trim() == '' ? '' : null,
+                  onChanged: (val) => setState(() => password = val),
+                ),
+              ),
+              SizedBox(height: 12.0),
+              Container(
+                  child: Center(
+                      child: Regbutton(
+                onPress: () async {
+                  if (_formKey.currentState.validate()) {
+                    setState(() => loading = true);
+//
+                    Driver driver = new Driver(
+                      email,
+                      address,
+                      fullName,
+                      nicNumber,
+                      confirmedNumber,
+                    );
+                    print(driver);
+
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        driver, password);
+
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => DriverMap()));
+                  }
+                },
+                typeText: Text('register',
+                    style: const TextStyle(
+                        color: const Color(0xfffefefe),
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20.0)),
+              ))),
+              SizedBox(height: 12.0),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0),
+              )
+            ],
           ),
-          SizedBox(
-            height: 20,
-          ),
-          loginButton,
-        ],
+        ),
       ),
     );
-
-
-    return  loading ? Loading() :Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        actions:<Widget> [
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign In'),
-            onPressed: () => widget.toggleView(),
-          ),
-
-        ],
-      ),
-      resizeToAvoidBottomPadding: false,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/main.jpg'),
-                    fit: BoxFit.cover)),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  width: 20.0,
-                  height: 70.0,
+    return loading
+        ? Loading()
+        : Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.blue,
+              actions: <Widget>[
+                FlatButton.icon(
+                  icon: Icon(Icons.person),
+                  label: Text('Sign In'),
+                  onPressed: () => widget.toggleView(),
                 ),
-                welcomeBack,
-                Spacer(flex: 1),
-                loginForm,
-                Spacer(flex: 2),
-                // forgotPassword
               ],
             ),
-          ),
-
-        ],
-      ),
-
-
-
-
-    );
+            resizeToAvoidBottomPadding: false,
+            body: Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/main.jpg'),
+                      fit: BoxFit.cover)),
+              child: registerForm,
+            ),
+          );
   }
 }
