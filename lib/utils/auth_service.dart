@@ -21,9 +21,9 @@ class AuthService{
     }
   }
   // create user obj based on firebase user
-  Driver _userFromFirebaseUser(User user) {
-    return user != null ? Driver(uid: user.uid) : null;
-  }
+  // Driver _userFromFirebaseUser(Driver driver) {
+  //   return driver != null ? Driver() : null;
+  // }
 
 
   // sign in with email and password
@@ -39,13 +39,14 @@ class AuthService{
   }
 
   // register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(Driver driver, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      User user = result.user;
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: driver.email, password: password);
+      print(result);
+      // Driver driver = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user.uid).updateUserData();
-      return _userFromFirebaseUser(user);
+      // await DatabaseService(uid: user.uid).updateUserData();
+      // return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
       return null;

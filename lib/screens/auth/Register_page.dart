@@ -1,11 +1,11 @@
 import 'package:dustbin_mangment/LoadingScreen.dart';
 import 'package:dustbin_mangment/components/regbutton.dart';
+import 'package:dustbin_mangment/models/driver.dart';
 import 'package:dustbin_mangment/screens/auth/form_constraints.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -153,12 +153,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (_formKey.currentState.validate()) {
                     setState(() => loading = true);
 //
-//                             User user = new User(email, uname, fname, lname, city,
-//                                 district, address, confirmedNumber, 0, 0, "");
-                    //
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (_) =>
-                    //         ConfirmOtpPage(user, password, widget.fromCart)));
+                    Driver driver = new Driver(
+                      email,
+                      address,
+                      fullName,
+                      nicNumber,
+                      confirmedNumber,
+                    );
+
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        driver, password);
+
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) =>
+                            DriverMap()));
                   }
                 },
                 typeText: Text('register',
