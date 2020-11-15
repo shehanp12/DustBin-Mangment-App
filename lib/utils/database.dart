@@ -1,17 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dustbin_mangment/models/driver.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DatabaseService{
 
-   String uid;
-   DatabaseService({this.uid});
+  final Driver driver;
+  final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
+  DatabaseService(this.driver);
 
+   Future<void>  addDriver(){
 
-   final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
-
-   Future<void> updateUserData() async {
-     return await driverCollection.doc(uid).set({
+     return driverCollection.add({
+       'email':driver.email,
+       'address':driver.address,
+       'fullName':driver.fullName,
+       'nicNumber':driver.nicNumber,
+       'phoneNumber':driver.phoneNumber
 
      });
+
+
+
+
+
+
    }
 
 
