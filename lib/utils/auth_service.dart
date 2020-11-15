@@ -17,6 +17,10 @@ class AuthService{
     try{
       return await _auth.signOut();
 
+
+
+
+
     }
     catch(e){
       print(e.toString());

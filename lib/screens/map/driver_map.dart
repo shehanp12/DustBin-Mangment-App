@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dustbin_mangment/screens/auth/authenticate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -100,6 +101,8 @@ class _DriverMapState extends State<DriverMap> {
     }
   }
 
+
+
   Future<Uint8List> getMarker() async {
     ByteData byteData =
         await DefaultAssetBundle.of(context).load("assets/images/car.png");
@@ -133,6 +136,8 @@ class _DriverMapState extends State<DriverMap> {
           FlatButton.icon(
             onPressed: () async {
               await _auth.signOut();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => Authenticate()));
             },
             icon: Icon(Icons.lock),
             label: Text('Logout',style: TextStyle(
