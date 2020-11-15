@@ -164,9 +164,24 @@ class _RegisterPageState extends State<RegisterPage> {
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         driver, password);
 
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) =>
-                            DriverMap()));
+                    if (result != null) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) => DriverMap()));
+                    } else {
+                      showCupertinoDialog(
+                          context: context,
+                          builder: (context) => CupertinoAlertDialog(
+                                content:
+                                    Text("Login failed. Please try again!"),
+                                actions: <Widget>[
+                                  CupertinoButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      }),
+                                ],
+                              ));
+                    }
                   }
                 },
                 typeText: Text('register',
