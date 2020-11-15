@@ -1,5 +1,4 @@
 import 'package:dustbin_mangment/LoadingScreen.dart';
-import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

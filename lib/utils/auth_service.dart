@@ -1,7 +1,6 @@
 import 'package:dustbin_mangment/utils/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/models/driver.dart';
-import 'package:dustbin_mangment/utils/database.dart';
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
