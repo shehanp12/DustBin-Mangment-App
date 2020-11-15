@@ -28,11 +28,6 @@ class AuthService{
 
     }
   }
-  // create user obj based on firebase user
-  // Driver _userFromFirebaseUser(Driver driver) {
-  //   return driver != null ? Driver() : null;
-  // }
-
 
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {

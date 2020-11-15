@@ -30,6 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String phoneNumber;
   String phoneIsoCode;
   String confirmedNumber;
+  String vehicleNumber = '';
 
   void onPhoneNumberChange(
       String number, String internationalizedPhoneNumber, String isoCode) {
@@ -154,17 +155,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (_formKey.currentState.validate()) {
                     setState(() => loading = true);
 //
-                    Driver driver = new Driver(
-                      email,
-                      address,
-                      fullName,
-                      nicNumber,
-                      confirmedNumber,
-                    );
+                    Driver driver = new Driver(email, address, fullName,
+                        nicNumber, confirmedNumber, vehicleNumber);
                     print(driver);
 
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         driver, password);
+
 
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (_) => DriverMap()));

@@ -19,6 +19,8 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String vehicleNum = '';
+
   @override
   Widget build(BuildContext context) {
     Widget welcomeBack = Text('Welcome Driver',
@@ -118,6 +120,19 @@ class _SignInPageState extends State<SignInPage> {
                           val.isEmpty ? 'Please enter your Email' : null,
                       onChanged: (val) => setState(() => email = val),
                       style: TextStyle(fontSize: 16.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Vehicle Number',
+                      ),
+                      validator: (val) =>
+                      val.isEmpty ? 'Please enter vehicle Number' : null,
+                      onChanged: (val) => setState(() => password = val),
+                      style: TextStyle(fontSize: 16.0),
+                      obscureText: true,
                     ),
                   ),
                   Padding(
