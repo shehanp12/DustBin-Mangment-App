@@ -33,6 +33,7 @@ dependencies:
   geoflutterfire: ^2.2.1
   rxdart: ^0.24.1
   animated_text_kit: ^2.5.4
+  international_phone_input: ^1.0.4
 
 
 
