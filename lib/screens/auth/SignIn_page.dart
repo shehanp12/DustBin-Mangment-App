@@ -18,6 +18,8 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  String vehicleNum = '';
+
   @override
   Widget build(BuildContext context) {
     Widget welcomeBack = Text('Welcome Driver',
@@ -87,11 +89,11 @@ class _SignInPageState extends State<SignInPage> {
     );
 
     Widget loginForm = Container(
-      height: 260,
+      height: 330,
       child: Stack(
         children: <Widget>[
           Container(
-            height: 160,
+            height: 250,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             decoration: BoxDecoration(
@@ -124,6 +126,19 @@ class _SignInPageState extends State<SignInPage> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextFormField(
                       decoration: InputDecoration(
+                        hintText: 'Enter Vehicle Number',
+                      ),
+                      validator: (val) =>
+                      val.isEmpty ? 'Please enter vehicle Number' : null,
+                      onChanged: (val) => setState(() => password = val),
+                      style: TextStyle(fontSize: 16.0),
+                      obscureText: true,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
                         hintText: 'Your Password',
                       ),
                       validator: (val) =>
@@ -137,9 +152,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+
           loginButton,
         ],
       ),
