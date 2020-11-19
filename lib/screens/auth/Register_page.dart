@@ -9,14 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 
 class RegisterPage extends StatefulWidget {
-
   final Function toggleView;
   RegisterPage({this.toggleView});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
-
 
 class _RegisterPageState extends State<RegisterPage> {
   bool loading = false;
@@ -34,99 +32,18 @@ class _RegisterPageState extends State<RegisterPage> {
   String confirmedNumber;
   String vehicleNumber = '';
 
-  void onPhoneNumberChange(String number, String internationalizedPhoneNumber,
-      String isoCode) {
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
     setState(() {
       phoneNumber = number;
       phoneIsoCode = isoCode;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget welcomeBack = Text(
-        'Welcome Driver',
-        style: TextStyle(
-            color: Color.fromRGBO(25, 35, 45, 1),
-            fontSize: 50.0,
-            fontWeight: FontWeight.bold)
-    );
-
-    Widget loginButton = Positioned(
-      left: MediaQuery
-          .of(context)
-          .size
-          .width / 6,
-      bottom: 10,
-      child: InkWell(
-        onTap: () async {
-          if (_formKey.currentState.validate()) {
-            setState(() => loading = true);
 
 
-            dynamic result =
-            await _auth.registerWithEmailAndPassword(email, password);
-
-            if (result != null) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => DriverMap()));
-            }
-
-            else {
-              showCupertinoDialog(
-                  context: context,
-                  builder: (context) =>
-                      CupertinoAlertDialog(
-                        content: Text(
-                            "Login failed. Please try again!"),
-                        actions: <Widget>[
-                          CupertinoButton(
-                              child: Text("Ok"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }),
-                        ],
-                      ));
-            }
-          }
-        },
-        child: Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width / 2,
-          height: 80,
-          child: Center(
-              child: new Text('Register',
-                  style: const TextStyle(
-                      color: const Color(0xfffefefe),
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 20.0))),
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
-                  ],
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.16),
-                  offset: Offset(0, 5),
-                  blurRadius: 10.0,
-                )
-              ],
-              borderRadius: BorderRadius.circular(50.0)),
-        ),
-      ),
-    );
-
-
-    onValidPhoneNumber(String number, String internationalizedPhoneNumber,
-        String isoCode) {
+    onValidPhoneNumber(
+        String number, String internationalizedPhoneNumber, String isoCode) {
       setState(() {
         confirmedNumber = internationalizedPhoneNumber;
       });
@@ -135,14 +52,8 @@ class _RegisterPageState extends State<RegisterPage> {
     @override
     Widget build(BuildContext context) {
       Widget registerForm = Container(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height / 1.15,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        height: MediaQuery.of(context).size.height / 1.15,
+        width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
         decoration: BoxDecoration(
             color: Color.fromRGBO(255, 255, 255, 0.8),
@@ -159,10 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 Padding(padding: EdgeInsets.all(10.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(
                         errorStyle: TextStyle(height: 0),
@@ -170,16 +78,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(fieldRadius))),
                     validator: (val) =>
-                    val == null || val.trim() == '' ? '' : null,
+                        val == null || val.trim() == '' ? '' : null,
                     onChanged: (val) => setState(() => fullName = val),
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(3.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(
                         errorStyle: TextStyle(height: 0),
@@ -187,16 +92,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(fieldRadius))),
                     validator: (val) =>
-                    val == null || val.trim() == '' ? '' : null,
+                        val == null || val.trim() == '' ? '' : null,
                     onChanged: (val) => setState(() => address = val),
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(3.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: InternationalPhoneInput(
                       hintText: "eg:0772009803",
                       onPhoneNumberChange: onValidPhoneNumber,
@@ -207,10 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Padding(padding: EdgeInsets.all(3.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(
                         errorStyle: TextStyle(height: 0),
@@ -218,16 +117,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(fieldRadius))),
                     validator: (val) =>
-                    val == null || val.trim() == '' ? '' : null,
+                        val == null || val.trim() == '' ? '' : null,
                     onChanged: (val) => setState(() => nicNumber = val),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 3.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(
                         errorStyle: TextStyle(height: 0),
@@ -235,16 +131,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(fieldRadius))),
                     validator: (val) =>
-                    val == null || val.trim() == '' ? '' : null,
+                        val == null || val.trim() == '' ? '' : null,
                     onChanged: (val) => setState(() => email = val),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 3.0)),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(
                         errorStyle: TextStyle(height: 0),
@@ -252,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(fieldRadius))),
                     validator: (val) =>
-                    val == null || val.trim() == '' ? '' : null,
+                        val == null || val.trim() == '' ? '' : null,
                     onChanged: (val) => setState(() => password = val),
                   ),
                 ),
@@ -260,32 +153,28 @@ class _RegisterPageState extends State<RegisterPage> {
                 Container(
                     child: Center(
                         child: Regbutton(
-                          onPress: () async {
-                            if (_formKey.currentState.validate()) {
-                              setState(() => loading = true);
+                  onPress: () async {
+                    if (_formKey.currentState.validate()) {
+                      setState(() => loading = true);
 //
-                              Driver driver = new Driver(
-                                  email, address, fullName,
-                                  nicNumber, confirmedNumber, vehicleNumber);
-                              print(driver);
+                      Driver driver = new Driver(email, address, fullName,
+                          nicNumber, confirmedNumber, vehicleNumber);
+                      print(driver);
 
-                              dynamic result = await _auth
-                                  .registerWithEmailAndPassword(
-                                  driver, password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(
+                          driver, password);
 
-
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(
-                                  builder: (_) => DriverMap()));
-                            }
-                          },
-                          typeText: Text('Register',
-                              style: const TextStyle(
-                                  color: const Color(0xfffefefe),
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 20.0)),
-                        ))),
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) => DriverMap()));
+                    }
+                  },
+                  typeText: Text('Register',
+                      style: const TextStyle(
+                          color: const Color(0xfffefefe),
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0)),
+                ))),
                 SizedBox(height: 12.0),
                 Text(
                   error,
@@ -299,30 +188,27 @@ class _RegisterPageState extends State<RegisterPage> {
       return loading
           ? Loading()
           : Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: () => widget.toggleView(),
-            ),
-          ],
-        ),
-        resizeToAvoidBottomPadding: false,
-        body: Container(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/main.jpg'),
-                  fit: BoxFit.cover)),
-          child: registerForm,
-        ),
-      );
+              appBar: AppBar(
+                backgroundColor: Colors.blue,
+                actions: <Widget>[
+                  FlatButton.icon(
+                    icon: Icon(Icons.person),
+                    label: Text('Sign In'),
+                    onPressed: () => widget.toggleView(),
+                  ),
+                ],
+              ),
+              resizeToAvoidBottomPadding: false,
+              body: Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/main.jpg'),
+                        fit: BoxFit.cover)),
+                child: registerForm,
+              ),
+            );
     }
   }
-}
+
