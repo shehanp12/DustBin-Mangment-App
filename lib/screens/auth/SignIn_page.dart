@@ -34,6 +34,7 @@ class _SignInPageState extends State<SignInPage> {
       child: InkWell(
         onTap: () async {
           if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
             dynamic result =
                 await _auth.signInWithEmailAndPassword(email, password);
             if (result != null) {
