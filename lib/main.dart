@@ -1,7 +1,5 @@
 import 'package:dustbin_mangment/SplashScreen.dart';
 
-import 'package:dustbin_mangment/screens/auth/Register_page.dart';
-import 'package:dustbin_mangment/screens/auth/SignIn_page.dart';
 
 import 'package:dustbin_mangment/screens/home/HomeScreen.dart';
 import 'package:flutter/material.dart';
