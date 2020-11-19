@@ -88,11 +88,11 @@ class _SignInPageState extends State<SignInPage> {
     );
 
     Widget loginForm = Container(
-      height: 260,
+      height: 330,
       child: Stack(
         children: <Widget>[
           Container(
-            height: 160,
+            height: 250,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             decoration: BoxDecoration(
@@ -151,9 +151,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+
           loginButton,
         ],
       ),

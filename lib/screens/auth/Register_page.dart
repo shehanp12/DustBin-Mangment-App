@@ -167,7 +167,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         .push(MaterialPageRoute(builder: (_) => DriverMap()));
                   }
                 },
-                typeText: Text('register',
+                typeText: Text('Register',
                     style: const TextStyle(
                         color: const Color(0xfffefefe),
                         fontWeight: FontWeight.w600,
