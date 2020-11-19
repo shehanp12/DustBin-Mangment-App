@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dustbin_mangment/models/driver.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class DatabaseService{
 
@@ -15,7 +14,8 @@ class DatabaseService{
        'address':driver.address,
        'fullName':driver.fullName,
        'nicNumber':driver.nicNumber,
-       'phoneNumber':driver.phoneNumber
+       'phoneNumber':driver.phoneNumber,
+       'vehicleNumber':driver.vehicleNumber
 
      });
 

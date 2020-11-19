@@ -1,7 +1,6 @@
 import 'package:dustbin_mangment/utils/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/models/driver.dart';
-import 'package:dustbin_mangment/utils/database.dart';
 class AuthService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,11 +27,6 @@ class AuthService{
 
     }
   }
-  // create user obj based on firebase user
-  // Driver _userFromFirebaseUser(Driver driver) {
-  //   return driver != null ? Driver() : null;
-  // }
-
 
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
