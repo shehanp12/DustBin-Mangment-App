@@ -9,7 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 class DriverMap extends StatefulWidget {
   @override
   _DriverMapState createState() => _DriverMapState();
@@ -24,6 +25,8 @@ class _DriverMapState extends State<DriverMap> {
   GoogleMapController _controller;
   String uid;
   var name;
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
   static final CameraPosition initialLocation = CameraPosition(
     target: LatLng(6.8211, 80.0409),
