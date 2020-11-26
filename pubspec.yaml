@@ -34,6 +34,8 @@ dependencies:
   rxdart: ^0.24.1
   animated_text_kit: ^2.5.4
   international_phone_input: ^1.0.4
+  firebase_messaging: ^7.0.3
+
 
 
 

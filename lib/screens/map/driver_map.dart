@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class DriverMap extends StatefulWidget {
   @override
@@ -24,6 +25,45 @@ class _DriverMapState extends State<DriverMap> {
   GoogleMapController _controller;
   String uid;
   var name;
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  String title = "Title";
+  String helper ="helper";
+  @override
+  void initState(){
+   super.initState();
+
+   _firebaseMessaging.configure(
+
+     onMessage: (Map<String, dynamic> message) async {
+       print("onMessage: $message");
+       showDialog(
+         context: context,
+         builder: (context) => AlertDialog(
+           content: ListTile(
+             title: Text(message['notification']['title']),
+             subtitle: Text(message['notification']['body']),
+           ),
+           actions: <Widget>[
+             FlatButton(
+               child: Text('Accepted'),
+               onPressed: () => Navigator.of(context).pop(),
+             ),
+             FlatButton(
+               child: Text('Rejected'),
+               onPressed: () => Navigator.of(context).pop(),
+             ),
+           ],
+         ),
+       );
+     },
+
+
+
+
+   );
+
+  }
 
   static final CameraPosition initialLocation = CameraPosition(
     target: LatLng(6.8211, 80.0409),
