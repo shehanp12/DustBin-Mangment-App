@@ -34,14 +34,6 @@ class _DriverMapState extends State<DriverMap> {
    super.initState();
 
    _firebaseMessaging.configure(
-     // onMessage: (message) async {
-     //   setState(() {
-     //     title = message["notification"]["title"];
-     //     helper = "You have received a new message ";
-     //
-     //
-     //   });
-     // }
 
      onMessage: (Map<String, dynamic> message) async {
        print("onMessage: $message");
@@ -54,7 +46,11 @@ class _DriverMapState extends State<DriverMap> {
            ),
            actions: <Widget>[
              FlatButton(
-               child: Text('Ok'),
+               child: Text('Accepted'),
+               onPressed: () => Navigator.of(context).pop(),
+             ),
+             FlatButton(
+               child: Text('Rejected'),
                onPressed: () => Navigator.of(context).pop(),
              ),
            ],
