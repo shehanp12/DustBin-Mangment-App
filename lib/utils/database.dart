@@ -6,7 +6,7 @@ class DatabaseService{
   final Driver driver;
   final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
   DatabaseService(this.driver);
-
+  final CollectionReference notificationCollection = FirebaseFirestore.instance.collection('notification');
    Future<void>  addDriver(){
 
      return driverCollection.add({
@@ -18,12 +18,14 @@ class DatabaseService{
        'vehicleNumber':driver.vehicleNumber
 
      });
+   }
 
+   Future<void> onAcceptNotifcation(){
 
-
-
-
-
+     return notificationCollection.add({
+       'id':driver.fullName,
+       'Notification':'Aceepted'
+     });
    }
 
 

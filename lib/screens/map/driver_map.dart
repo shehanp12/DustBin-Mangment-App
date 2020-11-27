@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dustbin_mangment/screens/auth/authenticate.dart';
+import 'package:dustbin_mangment/utils/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,14 +11,20 @@ import 'package:location/location.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:dustbin_mangment/models/driver.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dustbin_mangment/utils/notifcation.dart';
 class DriverMap extends StatefulWidget {
+
   @override
+
   _DriverMapState createState() => _DriverMapState();
+
 }
 
 class _DriverMapState extends State<DriverMap> {
   final AuthService _auth = AuthService();
+  final NotifcationService _notifcationService = NotifcationService();
   StreamSubscription _locationSubscription;
   Location _locationTracker = Location();
   Marker marker;
@@ -29,6 +36,10 @@ class _DriverMapState extends State<DriverMap> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   String title = "Title";
   String helper ="helper";
+
+
+
+
   @override
   void initState(){
    super.initState();
@@ -47,20 +58,16 @@ class _DriverMapState extends State<DriverMap> {
            actions: <Widget>[
              FlatButton(
                child: Text('Accepted'),
-               onPressed: () => Navigator.of(context).pop(),
+               onPressed: () => onAccepted(),
              ),
              FlatButton(
                child: Text('Rejected'),
-               onPressed: () => Navigator.of(context).pop(),
+               onPressed: () => onDeclined(),
              ),
            ],
          ),
        );
      },
-
-
-
-
    );
 
   }
@@ -110,6 +117,17 @@ class _DriverMapState extends State<DriverMap> {
     });
   }
 
+   void onAccepted(){
+     Navigator.of(context).pop();
+     _notifcationService.onAcceptNotifcation();
+
+
+   }
+
+   void onDeclined(){
+    Navigator.of(context).pop();
+    _notifcationService.onDeclineNotifcation();
+   }
   void getCurrentLocation() async {
     try {
       Uint8List imageData = await getMarker();
