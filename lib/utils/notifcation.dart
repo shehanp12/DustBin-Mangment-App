@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dustbin_mangment/models/driver.dart';
-import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class NotifcationService{
 
@@ -15,7 +13,7 @@ class NotifcationService{
 
     return notificationCollection.add({
       'id':user.uid,
-      'Full Name':user.email,
+      'FullName':user.email,
       'Notification':'Aceepted'
     });
   }
@@ -24,10 +22,26 @@ class NotifcationService{
 
     return notificationCollection.add({
       'id':user.uid,
-       'Full Name':user.email,
-      'Notification':'Aceepted'
+       'FullName':user.email,
+      'Notification':'Declined'
     });
   }
+
+  Future<void> logoutDriver(uid){
+
+    return driverCollection.doc(uid).update({
+      'login':false
+    });
+
+
+
+
+
+
+
+  }
+
+
 
 
 }

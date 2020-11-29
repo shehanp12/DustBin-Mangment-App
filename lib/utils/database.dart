@@ -6,27 +6,29 @@ class DatabaseService{
   final Driver driver;
   final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
   DatabaseService(this.driver);
-  final CollectionReference notificationCollection = FirebaseFirestore.instance.collection('notification');
-   Future<void>  addDriver(){
+  final CollectionReference trucksCollection = FirebaseFirestore.instance.collection('Trucks');
 
-     return driverCollection.add({
-       'email':driver.email,
-       'address':driver.address,
-       'fullName':driver.fullName,
-       'nicNumber':driver.nicNumber,
-       'phoneNumber':driver.phoneNumber,
-       'vehicleNumber':driver.vehicleNumber
+   Future<void>  addDriver(uid){
 
-     });
+     return driverCollection.doc(uid).set(
+       {
+         'email':driver.email,
+         'address':driver.address,
+         'fullName':driver.fullName,
+         'nicNumber':driver.nicNumber,
+         'phoneNumber':driver.phoneNumber,
+         'vehicleNumber':driver.vehicleNumber,
+         'login':driver.login
+
+       }
+     );
+
+
+
+
    }
 
-   Future<void> onAcceptNotifcation(){
 
-     return notificationCollection.add({
-       'id':driver.fullName,
-       'Notification':'Aceepted'
-     });
-   }
 
 
 

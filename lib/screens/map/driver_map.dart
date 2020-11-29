@@ -14,6 +14,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:dustbin_mangment/models/driver.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/utils/notifcation.dart';
+
 class DriverMap extends StatefulWidget {
 
   @override
@@ -23,6 +24,7 @@ class DriverMap extends StatefulWidget {
 }
 
 class _DriverMapState extends State<DriverMap> {
+  Driver driver;
   final AuthService _auth = AuthService();
   final NotifcationService _notifcationService = NotifcationService();
   StreamSubscription _locationSubscription;
@@ -32,13 +34,11 @@ class _DriverMapState extends State<DriverMap> {
   GoogleMapController _controller;
   String uid;
   var name;
+  final User user = FirebaseAuth.instance.currentUser;
+  // uid = user.uid.toString();
+
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  String title = "Title";
-  String helper ="helper";
-
-
-
 
   @override
   void initState(){
@@ -193,7 +193,14 @@ class _DriverMapState extends State<DriverMap> {
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () async {
+              String uid =FirebaseAuth.instance.currentUser.uid.toString();
+              print(uid);
+              _notifcationService.logoutDriver(uid);
+
+
               await _auth.signOut();
+
+
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => Authenticate()));
             },
