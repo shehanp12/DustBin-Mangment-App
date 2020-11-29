@@ -31,6 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String phoneIsoCode;
   String confirmedNumber;
   String vehicleNumber = '';
+  bool login = true;
 
   void onPhoneNumberChange(
       String number, String internationalizedPhoneNumber, String isoCode) {
@@ -158,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       setState(() => loading = true);
 //
                       Driver driver = new Driver(email, address, fullName,
-                          nicNumber, confirmedNumber, vehicleNumber);
+                          nicNumber, confirmedNumber, vehicleNumber,login);
                       print(driver);
 
                       dynamic result = await _auth.registerWithEmailAndPassword(

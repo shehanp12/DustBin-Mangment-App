@@ -3,7 +3,7 @@ import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
-
+import 'package:dustbin_mangment/models/driver.dart';
 class SignInPage extends StatefulWidget {
   final Function toggleView;
   SignInPage({this.toggleView});
@@ -19,7 +19,11 @@ class _SignInPageState extends State<SignInPage> {
   String email = '';
   String password = '';
   String vehicleNum = '';
-
+  String address = '';
+  String fullName = '';
+  String nicNumber = '';
+  String confirmedNumber;
+  String vehicleNumber = '';
   @override
   Widget build(BuildContext context) {
     Widget welcomeBack = Text('Welcome Driver',
@@ -35,6 +39,8 @@ class _SignInPageState extends State<SignInPage> {
         onTap: () async {
           if (_formKey.currentState.validate()) {
             setState(() => loading = true);
+
+
             dynamic result =
                 await _auth.signInWithEmailAndPassword(email, password);
             if (result != null) {

@@ -6,25 +6,29 @@ class DatabaseService{
   final Driver driver;
   final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
   DatabaseService(this.driver);
+  final CollectionReference trucksCollection = FirebaseFirestore.instance.collection('Trucks');
 
-   Future<void>  addDriver(){
+   Future<void>  addDriver(uid){
 
-     return driverCollection.add({
-       'email':driver.email,
-       'address':driver.address,
-       'fullName':driver.fullName,
-       'nicNumber':driver.nicNumber,
-       'phoneNumber':driver.phoneNumber,
-       'vehicleNumber':driver.vehicleNumber
+     return driverCollection.doc(uid).set(
+       {
+         'email':driver.email,
+         'address':driver.address,
+         'fullName':driver.fullName,
+         'nicNumber':driver.nicNumber,
+         'phoneNumber':driver.phoneNumber,
+         'vehicleNumber':driver.vehicleNumber,
+         'login':driver.login
 
-     });
-
-
+       }
+     );
 
 
 
 
    }
+
+
 
 
 
