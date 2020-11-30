@@ -18,7 +18,7 @@ class DatabaseService{
          'nicNumber':driver.nicNumber,
          'phoneNumber':driver.phoneNumber,
          'vehicleNumber':driver.vehicleNumber,
-         'login':driver.login
+         'login':driver.login ? "Online":"Offline"
 
        }
      );

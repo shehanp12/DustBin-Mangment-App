@@ -1,4 +1,5 @@
 import 'package:dustbin_mangment/utils/database.dart';
+import 'package:dustbin_mangment/utils/notifcation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/models/driver.dart';
 class AuthService{
@@ -7,22 +8,12 @@ class AuthService{
 
 
    final User user = FirebaseAuth.instance.currentUser;
-
-
-
-
-
-
-
+   final NotifcationService _notifcationService = NotifcationService();
 
    Future signOut() async {
     try{
 
       return await _auth.signOut();
-
-
-
-
 
 
     }
@@ -37,6 +28,8 @@ class AuthService{
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email:email, password: password);
+      String uid =FirebaseAuth.instance.currentUser.uid.toString();
+      _notifcationService.logoInDriver(uid);
 
       User user = result.user;
       return user;
