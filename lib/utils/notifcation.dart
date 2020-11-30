@@ -1,55 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-class NotifcationService{
+class NotifcationService {
 
   String uid;
-  final CollectionReference driverCollection = FirebaseFirestore.instance.collection('Drivers');
+  final CollectionReference driverCollection = FirebaseFirestore.instance
+      .collection('Drivers');
 
-  final CollectionReference notificationCollection = FirebaseFirestore.instance.collection('notification');
+  final CollectionReference notificationCollection = FirebaseFirestore.instance
+      .collection('notification');
   User user = FirebaseAuth.instance.currentUser;
 
 
-  Future<void> onAcceptNotifcation(){
-
+  Future<void> onAcceptNotifcation() {
     return notificationCollection.add({
-      'id':user.uid,
-      'FullName':user.email,
-      'Notification':'Aceepted'
+      'id': user.uid,
+      'FullName': user.email,
+      'Notification': 'Aceepted'
     });
   }
 
-  Future<void> onDeclineNotifcation(){
-
+  Future<void> onDeclineNotifcation() {
     return notificationCollection.add({
-      'id':user.uid,
-       'FullName':user.email,
-      'Notification':'Declined'
+      'id': user.uid,
+      'FullName': user.email,
+      'Notification': 'Declined'
     });
   }
 
-  Future<void> logoutDriver(uid){
-
+  Future<void> logoutDriver(uid) {
     return driverCollection.doc(uid).update({
-      'login':"Offline"
+      'login': "Offline"
     });
+  }
 
-    Future<void> logoutDriver(uid){
-
-      return driverCollection.doc(uid).update({
-        'login':"Offline"
-      });
-
-
-
-
-
-
-
-
-
-    }
-
-
-
+  Future<void> logoInDriver(uid) {
+    return driverCollection.doc(uid).update({
+      'login': "Online"
+    });
+  }
 
 }
