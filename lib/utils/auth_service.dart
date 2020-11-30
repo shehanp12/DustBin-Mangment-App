@@ -9,20 +9,10 @@ class AuthService{
    final User user = FirebaseAuth.instance.currentUser;
 
 
-
-
-
-
-
-
    Future signOut() async {
     try{
 
       return await _auth.signOut();
-
-
-
-
 
 
     }
@@ -37,6 +27,8 @@ class AuthService{
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email:email, password: password);
+      String uid =FirebaseAuth.instance.currentUser.uid.toString();
+      await DatabaseService(driver).addDriver(uid);
 
       User user = result.user;
       return user;

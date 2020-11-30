@@ -30,16 +30,24 @@ class NotifcationService{
   Future<void> logoutDriver(uid){
 
     return driverCollection.doc(uid).update({
-      'login':false
+      'login':"Offline"
     });
 
+    Future<void> logoutDriver(uid){
+
+      return driverCollection.doc(uid).update({
+        'login':"Offline"
+      });
 
 
 
 
 
 
-  }
+
+
+
+    }
 
 
 
