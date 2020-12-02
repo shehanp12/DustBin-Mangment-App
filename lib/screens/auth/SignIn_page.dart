@@ -3,7 +3,7 @@ import 'package:dustbin_mangment/screens/map/driver_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
-import 'package:dustbin_mangment/models/driver.dart';
+
 class SignInPage extends StatefulWidget {
   final Function toggleView;
   SignInPage({this.toggleView});

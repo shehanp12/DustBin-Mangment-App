@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dustbin_mangment/screens/auth/authenticate.dart';
-import 'package:dustbin_mangment/utils/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +11,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:dustbin_mangment/utils/auth_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:dustbin_mangment/models/driver.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dustbin_mangment/utils/notifcation.dart';
 
 class DriverMap extends StatefulWidget {
