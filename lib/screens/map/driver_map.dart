@@ -193,10 +193,10 @@ class _DriverMapState extends State<DriverMap> {
             onPressed: () async {
               String uid =FirebaseAuth.instance.currentUser.uid.toString();
               print(uid);
-              _notifcationService.logoutDriver(uid);
 
 
               await _auth.signOut();
+
 
 
               Navigator.of(context)

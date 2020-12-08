@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment:MainAxisAlignment.center,
               children:<Widget>[
 
-                Image.asset('assets/images/schbus.png',
-                  width: 150,
+                Image.asset('assets/images/trash.PNG',
+                  width: 200,
                 ),
                 Padding(
                   padding:EdgeInsets.only(top:20.0),
@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 250.0,
                   child:Center(
                     child: ColorizeAnimatedTextKit(
-                      text: ["Transport_Tracker",],
+                      text: ["Trash Maintain",],
 
                       textStyle: TextStyle(
                         fontSize: 30.0,
